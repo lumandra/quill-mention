@@ -38,6 +38,7 @@ class Mention {
       },
       mentionDenotationChars: ["@"],
       showDenotationChar: true,
+      showAvatar: false,
       allowedChars: /^[a-zA-Z0-9_]*$/,
       minChars: 0,
       maxChars: 31,
@@ -373,6 +374,12 @@ class Mention {
     }
   }
 
+  initials(value) {
+    if (value == undefined || value.length == 0)
+      return;
+    return value[0].toUpperCase();
+  }
+
   renderList(mentionChar, data, searchTerm) {
     if (data && data.length > 0) {
       this.removeLoading();
@@ -381,6 +388,8 @@ class Mention {
       this.mentionList.innerHTML = "";
 
       var initialSelection = -1;
+      console.log(this.options.showAvatar);
+      console.log(this.values);
 
       for (let i = 0; i < data.length; i += 1) {
         const li = document.createElement("li");
@@ -395,7 +404,21 @@ class Mention {
           initialSelection = i;
         }
         li.dataset.index = i;
-        li.innerHTML = this.options.renderItem(data[i], searchTerm);
+        let avatarBlock;
+        if (this.options.showAvatar) {
+          if (data[i].avatar == undefined  || data[i].avatar.length == 0 ) {
+            const spanText =  this.initials(data[i].value);
+            avatarBlock = `<div class="mention_avatar_block"> <div class="mention_avatar">` + 
+              `<span>${spanText}</span></div></div>`;
+          }
+          else
+            avatarBlock = `<img src="${data[i].avatar}" class='mention_avatar_image'/>`
+          const innerHTMLBlock = avatarBlock + '<span>' +
+            this.options.renderItem(data[i], searchTerm) + '</span>';
+            li.innerHTML = innerHTMLBlock; 
+        }
+        else
+          li.innerHTML = this.options.renderItem(data[i], searchTerm);
         if (!data[i].disabled) {
           li.onmouseenter = this.onItemMouseEnter.bind(this);
           li.onmouseup = this.onItemClick.bind(this);

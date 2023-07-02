@@ -49,6 +49,33 @@
   user-select: all;
 }
 
+div.mention_avatar_block {
+  display: inline-block !important;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+div.mention_avatar_block div.mention_avatar {
+  display: flex;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  font: 10px / 26px Helvetica, Arial, sans-serif;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  user-select: none;
+  background-color: rgb(63, 81, 181);
+  color: rgb(143, 161, 255);
+}
+.mention_avatar_image {
+  width: 26px;
+  height: 26px;
+  vertical-align: middle;
+  border-radius: 8px;
+  margin-right: 10px;
+}
+
 .mention > span {
   margin: 0 3px;
 }
