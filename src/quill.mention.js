@@ -388,8 +388,6 @@ class Mention {
       this.mentionList.innerHTML = "";
 
       var initialSelection = -1;
-      console.log(this.options.showAvatar);
-      console.log(this.values);
 
       for (let i = 0; i < data.length; i += 1) {
         const li = document.createElement("li");
